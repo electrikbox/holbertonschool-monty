@@ -1,11 +1,25 @@
 #include "main.h"
 
+char *buff = NULL;
+
+void freeAndClose(monty_stack_t **stack, FILE *file, char *line)
+{
+	freeStack(stack);
+	free(line);
+	fclose(file);
+}
+
+/**
+ * main - Entry point
+ * @argc: argument count
+ * @argv: argument vector
+*/
 int main(int argc, char *argv[])
 {
 	monty_stack_t *stack = NULL;
 	size_t line_number = 0, len = 0;
 	char *line = NULL, *opcode;
-	ssize_t read;
+	int read;
 	FILE *file;
 	int found, i;
 
@@ -31,8 +45,8 @@ int main(int argc, char *argv[])
 	while ((read = getline(&line, &len, file)) != -1)
 	{
 		line_number++;
-		opcode = strtok(line, " \n\t\r");
-		buff = strtok(NULL, " \n\t\r");
+		opcode = strtok(line, DELIMS);
+		buff = strtok(NULL, DELIMS);
 
 		if (opcode && opcode[0] != '#')
 		{
@@ -48,19 +62,14 @@ int main(int argc, char *argv[])
 			}
 			if (!found)
 			{
-				freeStack(&stack);
-				free(line);
-				fclose(file);
-
+				freeAndClose(&stack, file, line);
 				fprintf(stderr, "L%lu: unknown instruction %s\n", line_number, opcode);
 				return (EXIT_FAILURE);
 			}
 		}
 	}
 
-	freeStack(&stack);
-	free(line);
-	fclose(file);
+	freeAndClose(&stack, file, line);
 
 	return (EXIT_SUCCESS);
 }
