@@ -1,5 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
+#define DELIMS " \n\t\r"
 
 /*----------------includes----------------*/
 #include <stdio.h>
@@ -7,7 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 
-char *buff;
+extern char *buff;
 
 /*----------------structures----------------*/
 /**
