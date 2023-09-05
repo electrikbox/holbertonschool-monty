@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 		opcode = strtok(line, " \t\n");
 
 		if (opcode != NULL && opcode[0] != '#')
-			executeOpcode(opcode, line_number, line, file);
+			executeOp(opcode, line_number, line, file);
 	}
 	freeAndClose(&stack, line, file);
 	return (EXIT_SUCCESS);
