@@ -1,4 +1,4 @@
 push 5563
-push
-         push 7 6 8
+push          6
+         push 7
 pall

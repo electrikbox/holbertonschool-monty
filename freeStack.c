@@ -1,18 +1,14 @@
-#include "main.h"
+#include "monty.h"
 
-/**
- * freeStack - Frees the memory used by the stack.
- * @stack: Pointer to the top of the stack.
- */
-void freeStack(monty_stack_t **stack)
+/* Function to free the stack at the end of the program */
+void free_stack(stack_t **stack)
 {
-	monty_stack_t *current = *stack, *temp;
-
-	while (current)
-	{
-		temp = current;
-		current = current->next;
-		free(temp);
-	}
-	*stack = NULL;
+    stack_t *current = *stack;
+    while (current != NULL)
+    {
+        stack_t *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    *stack = NULL;
 }

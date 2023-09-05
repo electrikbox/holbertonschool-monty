@@ -1,83 +1,95 @@
-#include "main.h"
+#include "monty.h"
 
-char *data = NULL;
+stack_t *stack = NULL;
 
-void freeAndClose(monty_stack_t **stack, FILE *file, char *line)
+/**
+ * freeAndClose - frees memory and closes file
+ * @stack: pointer to stack
+ * @line: pointer to line
+ * @file: pointer to file
+*/
+void freeAndClose(stack_t **stack, char *line, FILE *file)
 {
-	freeStack(stack);
-	free(line);
 	fclose(file);
+	free(line);
+	free_stack(stack);
 }
 
 /**
- * main - Entry point
- * @argc: argument count
- * @argv: argument vector
+ * executeOpcode - executes given opcode
+ * @opcode: opcode
+ * @line_number: line number
+ * Return: 1 if found, 0 if not
 */
-int main(int argc, char *argv[])
+void executeOpcode(char *opcode, unsigned int line_number, char *line, FILE *file)
 {
-	monty_stack_t *stack = NULL;
-	size_t line_number = 0, len = 0;
-	FILE *file;
-	int found, i;
-	char *line = NULL, *opcode, *extraArg;
+	size_t i;
 
-	instruction_t instructions[] = {
-		{"push", push},
-		{"pall", pall},
+	instruction_t opcodes[] = {
+		{"push", opcode_push},
+		{"pall", opcode_pall},
+		{"pint", opcode_pint},
+		{"pop", opcode_pop},
+		{"swap", opcode_swap},
+		{"add", opcode_add},
+		{"nop", opcode_nop},
 		{NULL, NULL}
 	};
 
+	int found = 0;
+
+	for (i = 0; opcodes[i].opcode != NULL; i++)
+	{
+		if (strcmp(opcodes[i].opcode, opcode) == 0)
+		{
+			opcodes[i].f(&stack, line_number);
+			found = 1;
+			break;
+		}
+	}
+	if (!found)
+	{
+		fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+		freeAndClose(&stack, line, file);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/**
+ * main - entry point
+ * @argc: argument count
+ * @argv: arguments
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
+*/
+int main(int argc, char *argv[])
+{
+	FILE *file;
+	char *line = NULL, *opcode;
+	size_t len = 0;
+	unsigned int line_number = 0;
+
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s <file>\n", argv[0]);
-		return (EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 
 	file = fopen(argv[1], "r");
-	if (!file)
+
+	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
-	while ((getline(&line, &len, file)) != -1)
+	while (getline(&line, &len, file) != -1)
 	{
 		line_number++;
+		opcode = strtok(line, " \t\n");
 
-		opcode = strtok(line, DELIMS);
-		data = strtok(NULL, DELIMS);
-		extraArg = strtok(NULL, DELIMS);
-
-		if (extraArg)
-		{
-			freeAndClose(&stack, file, line);
-			fprintf(stderr, "L%lu: too many arguments for %s\n", line_number, opcode);
-			return (EXIT_FAILURE);
-		}
-
-		if (opcode && opcode[0] != '#')
-		{
-			found = 0;
-			for (i = 0; instructions[i].opcode; i++)
-			{
-				if (strcmp(opcode, instructions[i].opcode) == 0)
-				{
-					instructions[i].f(&stack, line_number);
-					found = 1;
-					break;
-				}
-			}
-			if (!found)
-			{
-				freeAndClose(&stack, file, line);
-				fprintf(stderr, "L%lu: unknown instruction %s\n", line_number, opcode);
-				return (EXIT_FAILURE);
-			}
-		}
+		if (opcode != NULL && opcode[0] != '#')
+			executeOpcode(opcode, line_number, line, file);
 	}
-
-	freeAndClose(&stack, file, line);
-
+	freeAndClose(&stack, line, file);
 	return (EXIT_SUCCESS);
 }
