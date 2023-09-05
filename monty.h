@@ -1,16 +1,10 @@
-#ifndef MAIN_H
-#define MAIN_H
-#define DELIMS " \n\t\r"
+#ifndef MONTY_H
+#define MONTY_H
 
-/*----------------includes----------------*/
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
 
-extern char *data;
-
-/*----------------structures----------------*/
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -20,12 +14,12 @@ extern char *data;
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO
  */
-typedef struct monty_stack_s
+typedef struct stack_s
 {
-        int n;
-        struct monty_stack_s *prev;
-        struct monty_stack_s *next;
-} monty_stack_t;
+    int n;
+    struct stack_s *prev;
+    struct stack_s *next;
+} stack_t;
 
 /**
  * struct instruction_s - opcode and its function
@@ -37,14 +31,13 @@ typedef struct monty_stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(monty_stack_t **stack, unsigned int line_number);
+    char *opcode;
+    void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-
-/*----------------prototypes----------------*/
-void push(monty_stack_t **stack, unsigned int line_number);
-void pall(monty_stack_t **stack, unsigned int line_number);
-void freeStack(monty_stack_t **stack);
+/* Function prototypes for Monty ByteCode interpreter */
+void opcode_push(stack_t **stack, unsigned int line_number);
+void opcode_pall(stack_t **stack, unsigned int line_number);
+void free_stack(stack_t **stack);
 
 #endif
