@@ -1,6 +1,6 @@
 #include "monty.h"
 
-stack_t *stack = NULL;
+/*stack_t *stack = NULL;*/
 
 /**
  * freeAndClose - frees memory and closes file
@@ -16,12 +16,14 @@ void freeAndClose(stack_t **stack, char *line, FILE *file)
 }
 
 /**
- * executeOpcode - executes given opcode
+ * executeOp - executes given opcode
  * @opcode: opcode
  * @line_number: line number
+ * @line: line
+ * @file: file
  * Return: 1 if found, 0 if not
 */
-void executeOpcode(char *opcode, unsigned int line_number, char *line, FILE *file)
+void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 {
 	size_t i;
 
