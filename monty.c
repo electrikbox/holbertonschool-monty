@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     /* Check for correct number of arguments */
     if (argc != 2)
     {
-    fprintf(stderr, "USAGE: monty file\n");
+    	fprintf(stderr, "USAGE: monty file\n");
         exit(EXIT_FAILURE);
     }
 
@@ -60,18 +60,19 @@ int main(int argc, char *argv[])
             if (!found)
             {
                 fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-                fclose(file);
+
+				fclose(file);
                 free(line);
                 free_stack(&stack);
-                exit(EXIT_FAILURE);
+
+				exit(EXIT_FAILURE);
             }
         }
     }
 
-    /* Clean up and close the file */
     fclose(file);
     free(line);
-    free_stack(&stack); // Corrected function call to free the stack
+    free_stack(&stack);
 
-    return (EXIT_SUCCESS); // Use EXIT_SUCCESS to indicate successful execution
+    return (EXIT_SUCCESS);
 }
