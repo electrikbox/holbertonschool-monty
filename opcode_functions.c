@@ -11,6 +11,7 @@
  */
 void opcode_push(stack_t **stack, unsigned int line_number)
 {
+	stack_t *new_node;
 	char *arg = strtok(NULL, " \t\n");
 	int value;
 
@@ -28,7 +29,7 @@ void opcode_push(stack_t **stack, unsigned int line_number)
 	}
 
 	/* Create a new node */
-	stack_t *new_node = malloc(sizeof(stack_t));
+	new_node = malloc(sizeof(stack_t));
 
 	if (new_node == NULL)
 	{
@@ -59,8 +60,9 @@ void opcode_push(stack_t **stack, unsigned int line_number)
  */
 void opcode_pall(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
 	stack_t *current = *stack;
+
+	(void)line_number;
 
 	while (current != NULL)
 	{
@@ -92,13 +94,15 @@ void opcode_pint(stack_t **stack, unsigned int line_number)
  */
 void opcode_pop(stack_t **stack, unsigned int line_number)
 {
+	stack_t *temp;
+
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	stack_t *temp = *stack;
+	temp = *stack;
 	*stack = (*stack)->next;
 	if (*stack != NULL)
 		(*stack)->prev = NULL;
@@ -113,13 +117,15 @@ void opcode_pop(stack_t **stack, unsigned int line_number)
  */
 void opcode_swap(stack_t **stack, unsigned int line_number)
 {
+	int temp;
+
 	if (*stack == NULL || (*stack)->next == NULL)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	int temp = (*stack)->n;
+	temp = (*stack)->n;
 	(*stack)->n = (*stack)->next->n;
 	(*stack)->next->n = temp;
 }
