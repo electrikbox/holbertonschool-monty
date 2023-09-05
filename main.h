@@ -8,7 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 
-extern char *buff;
+extern char *data;
 
 /*----------------structures----------------*/
 /**

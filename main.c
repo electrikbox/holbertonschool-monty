@@ -1,6 +1,6 @@
 #include "main.h"
 
-char *buff = NULL;
+char *data = NULL;
 
 void freeAndClose(monty_stack_t **stack, FILE *file, char *line)
 {
@@ -18,10 +18,9 @@ int main(int argc, char *argv[])
 {
 	monty_stack_t *stack = NULL;
 	size_t line_number = 0, len = 0;
-	char *line = NULL, *opcode;
-	int read;
 	FILE *file;
 	int found, i;
+	char *line = NULL, *opcode, *extraArg;
 
 	instruction_t instructions[] = {
 		{"push", push},
@@ -42,11 +41,20 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 
-	while ((read = getline(&line, &len, file)) != -1)
+	while ((getline(&line, &len, file)) != -1)
 	{
 		line_number++;
+
 		opcode = strtok(line, DELIMS);
-		buff = strtok(NULL, DELIMS);
+		data = strtok(NULL, DELIMS);
+		extraArg = strtok(NULL, DELIMS);
+
+		if (extraArg)
+		{
+			freeAndClose(&stack, file, line);
+			fprintf(stderr, "L%lu: too many arguments for %s\n", line_number, opcode);
+			return (EXIT_FAILURE);
+		}
 
 		if (opcode && opcode[0] != '#')
 		{

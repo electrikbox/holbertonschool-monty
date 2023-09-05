@@ -10,14 +10,14 @@ void push(monty_stack_t **stack, unsigned int line_number)
 	int num;
 	monty_stack_t *new_node;
 
-	if (!buff)
+	if (!data)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 
-	num = atoi(buff);
-	if (num == 0 && buff[0] != '0')
+	num = atoi(data);
+	if (num == 0 && data[0] != '0')
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
