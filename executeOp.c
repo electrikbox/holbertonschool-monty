@@ -8,7 +8,6 @@ stack_t *stack = NULL;
  * @line_number: line number
  * @line: line
  * @file: file
- * Return: 1 if found, 0 if not
 */
 void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 {
