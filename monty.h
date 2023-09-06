@@ -21,8 +21,6 @@ typedef struct stack_s
     struct stack_s *next;
 } stack_t;
 
-extern stack_t *stack;
-
 /**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
@@ -38,6 +36,7 @@ typedef struct instruction_s
 } instruction_t;
 
 /* Function prototypes for Monty ByteCode interpreter */
+void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file);
 void opcode_push(stack_t **stack, unsigned int line_number);
 void opcode_pall(stack_t **stack, unsigned int line_number);
 void opcode_pint(stack_t **stack, unsigned int line_number);
@@ -46,5 +45,6 @@ void opcode_swap(stack_t **stack, unsigned int line_number);
 void opcode_add(stack_t **stack, unsigned int line_number);
 void opcode_nop(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t **stack);
+void freeAndClose(stack_t **stack, char *line, FILE *file);
 
 #endif
