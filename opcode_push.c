@@ -9,6 +9,13 @@ void opcode_push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
 	char *arg = strtok(NULL, " \t\n");
+	char *extraArg = strtok(NULL, " \t\n");
+	if (extraArg)
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	
 	int value;
 
 	if (arg == NULL)
