@@ -1,6 +1,9 @@
 #include "monty.h"
 
-/* Function to free the stack at the end of the program */
+/**
+ * free_stack - frees a stack_t stack.
+ * @stack: pointer to the stack_t stack
+*/
 void free_stack(stack_t **stack)
 {
 	stack_t *current = *stack;
