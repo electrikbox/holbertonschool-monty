@@ -28,6 +28,7 @@ void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 		{"pchar", opcode_pchar},
 		{"pstr", opcode_pstr},
 		{"rotl", opcode_rotl},
+		{"rotr", opcode_rotr},
 		{NULL, NULL}
 	};
 

@@ -51,6 +51,7 @@ void opcode_mod(stack_t **stack, unsigned int line_number);
 void opcode_pchar(stack_t **stack, unsigned int line_number);
 void opcode_pstr(stack_t **stack, unsigned int line_number);
 void opcode_rotl(stack_t **stack, unsigned int line_number);
+void opcode_rotr(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t **stack);
 void freeAndClose(stack_t **stack, char *line, FILE *file);
 
