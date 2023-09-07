@@ -5,21 +5,23 @@
  * @stack: A pointer to the stack.
  * @line_number: The current line number in the Monty file.
  */
-void opcode_char(stack_t **stack, unsigned int line_number)
+void opcode_pchar(stack_t **stack, unsigned int line_number)
 {
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	char c;
 
-    char c = (char)(*stack)->n;
+	if (*stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
-    if (c < 32 || c > 126)
-    {
-        fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	c = (char)(*stack)->n;
 
-    printf("%c\n", c);
+	if (c < 32 || c > 126)
+	{
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%c\n", c);
 }
