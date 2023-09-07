@@ -29,6 +29,8 @@ void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 		{"pstr", opcode_pstr},
 		{"rotl", opcode_rotl},
 		{"rotr", opcode_rotr},
+		{"stack", opcode_stack},
+		{"queue", opcode_queue},
 		{NULL, NULL}
 	};
 
