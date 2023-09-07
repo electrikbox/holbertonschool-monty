@@ -13,12 +13,6 @@ void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 {
 	size_t i;
 
-	char *comment_char = strchr(line, '#');
-	if (comment_char != NULL)
-	{
-		*comment_char = '\0';
-	}
-
 	instruction_t opcodes[] = {
 		{"push", opcode_push},
 		{"pall", opcode_pall},

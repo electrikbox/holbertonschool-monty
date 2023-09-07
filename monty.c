@@ -33,14 +33,8 @@ int main(int argc, char *argv[])
 		line_number++;
 		opcode = strtok(line, " \t\n");
 
-	char *comment_char = strchr(line, '#');
-	if (comment_char != NULL)
-	{
-		*comment_char = '\0';
-	}
-
-	if (opcode != NULL && opcode[0] != '#')
-		executeOp(opcode, line_number, line, file);
+		if (opcode != NULL && opcode[0] != '#')
+			executeOp(opcode, line_number, line, file);
 	}
 	freeAndClose(&stack, line, file);
 	return (EXIT_SUCCESS);
