@@ -8,9 +8,8 @@
 void opcode_push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
-	char *arg = strtok(NULL, " \t\n");
+	char *arg = strtok(NULL, " \t\n"), *endptr;
 	int value;
-	char *endptr;
 
 	if (arg == NULL)
 	{
