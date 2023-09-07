@@ -26,6 +26,7 @@ void executeOp(char *opcode, unsigned int line_number, char *line, FILE *file)
 		{"mul", opcode_mul},
 		{"mod", opcode_mod},
 		{"pchar", opcode_pchar},
+		{"pstr", opcode_pstr},
 		{NULL, NULL}
 	};
 
