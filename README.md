@@ -31,6 +31,55 @@ To run the Monty ByteCode Interpreter, use the following command:
 
 `./monty file`
 
+- `file`: Path to the Monty ByteCode file you want to execute.
+
+If the program encounters any issues or errors, it will display appropriate error messages and exit with `EXIT_FAILURE`. Otherwise, it will exit with `EXIT_SUCCESS`.
+
+## Supported Opcodes
+
+The Monty ByteCode Interpreter supports the following opcodes:
+
+### push <int>
+
+Pushes an element onto the stack.
+
+### pall
+
+Prints all the values on the stack.
+
+### pint
+
+Prints the value at the top of the stack.
+
+### pop
+
+Removes the top element of the stack.
+
+### swap
+
+Swaps the top two elements of the stack.
+
+### add
+
+Adds the top two elements of the stack.
+
+### nop
+
+Does nothing.
+
+### sub
+
+Subtracts the top element from the second top element of the stack.
+
+Each opcode has specific usage requirements and error handling as described in the project specifications.
+
+## File Structure
+
+The project consists of the following files:
+
+- `executeOp.c`: Contains the `executeOp` function that executes the given opcode.
+- `freeAndClose.c`: Provides the `freeAndClose` function to free memory and close files.
+- `freeStack.c`: Contains the `free_stack` function to free a stack.
 - `global.h`: Header file defining the global variable for the stack.
 - `monty.c`: Main program that reads and executes Monty ByteCode files.
 - `monty.h`: Header file defining data structures, function prototypes, and opcodes.
