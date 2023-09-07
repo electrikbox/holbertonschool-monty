@@ -45,6 +45,9 @@ void opcode_swap(stack_t **stack, unsigned int line_number);
 void opcode_add(stack_t **stack, unsigned int line_number);
 void opcode_nop(stack_t **stack, unsigned int line_number);
 void opcode_sub(stack_t **stack, unsigned int line_number);
+void opcode_div(stack_t **stack, unsigned int line_number);
+void opcode_mul(stack_t **stack, unsigned int line_number);
+void opcode_mod(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t **stack);
 void freeAndClose(stack_t **stack, char *line, FILE *file);
 
