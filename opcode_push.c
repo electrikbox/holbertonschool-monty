@@ -10,6 +10,7 @@ void opcode_push(stack_t **stack, unsigned int line_number)
 	stack_t *new_node;
 	char *arg = strtok(NULL, " \t\n");
 	int value;
+	char *endptr;
 
 	if (arg == NULL)
 	{
@@ -17,8 +18,8 @@ void opcode_push(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	value = atoi(arg);
-	if (value == 0 && strcmp(arg, "0") != 0)
+	value = strtol(arg, &endptr, 10);
+	if (*endptr != '\0')
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
